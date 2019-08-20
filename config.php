@@ -29,12 +29,15 @@ switch ($data->type) {
         $user_id = $data->object->user_id;
 
 // делаем рандомное число для уникальности
-        $random_id = rand(1000000000000, 9000000000000);
+
+//        $random_id = date("dmYHi");
+
+//        $random_id = rand(1000000000000, 9000000000000);
         //готовим ответ
         $request_params = array(
-            'message' => "Спасибо за ваше мнимание!",
+            'message' => "Ответ бота за разрешение отправки сообщений",
             'user_id' => $user_id,
-            'random_id' => $random_id,
+            'random_id' => $user_id+999999999999999,
             'access_token' => $token,
             'v' => '5.101'
         );
@@ -42,6 +45,9 @@ switch ($data->type) {
         //собираем до кучи параметры
         $get_params = http_build_query($request_params);
 
+
+        //задержка отправки сообщения в секундах (первый параметр)
+        sleep(45);
         //отправляем тудысь....
         file_get_contents('https://api.vk.com/method/messages.send?' . $get_params);
 
